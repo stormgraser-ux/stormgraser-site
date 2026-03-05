@@ -93,6 +93,27 @@
       font-style: normal;
     }
 
+    .hero-cta {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 0.2rem;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.7s;
+    }
+
+    .hero-cta:hover {
+      color: var(--fg);
+      border-color: var(--fg);
+    }
+
     .scroll-hint {
       margin-top: 4.5rem;
       font-family: var(--mono);
@@ -276,6 +297,7 @@
         I find the <em>manual work</em> costing your business
         time and money. Then I build something that handles it.
       </p>
+      <a href="#contact" class="hero-cta">Get in touch</a>
       <p class="scroll-hint">Scroll</p>
     </section>
   </div>
@@ -291,21 +313,21 @@
           <span class="work-num">01</span>
           <div class="work-content">
             <h3>After-hours intake</h3>
-            <p>Your phone stops taking calls. Customers don't stop needing things. I build systems that capture requests around the clock and route them to you by morning. No missed leads. No frantic callbacks.</p>
+            <p>Your phone stops taking calls. Customers don't stop needing things. Around 40% of service inquiries come in outside business hours, and 80% of callers won't leave a voicemail. I build systems that capture those requests and route them to you by morning. No missed leads. No frantic callbacks.</p>
           </div>
         </li>
         <li class="work-item reveal">
           <span class="work-num">02</span>
           <div class="work-content">
             <h3>Manual scheduling</h3>
-            <p>Every booking is a phone call. That's time you're not spending on the actual job. I build systems that schedule for you, confirm with the customer automatically, and send reminders. No-shows become someone else's problem.</p>
+            <p>Every booking is a phone call. Most service businesses spend 8 to 10 hours a week just on scheduling. I build systems that let customers book themselves, confirm automatically, and send reminders. You get the time back. No-shows drop.</p>
           </div>
         </li>
         <li class="work-item reveal">
           <span class="work-num">03</span>
           <div class="work-content">
             <h3>Follow-up &amp; reminders</h3>
-            <p>Most businesses lose repeat customers to silence. Not bad service. Just nobody following up. I build automated sequences that keep you present without requiring you to remember anything, so the relationship outlasts the job.</p>
+            <p>Most businesses lose repeat customers to silence. Not bad service. Just nobody following up. Companies that follow up within an hour are 7x more likely to close. I build automated sequences that handle it for you, so the relationship outlasts the job.</p>
           </div>
         </li>
       </ul>
@@ -330,7 +352,7 @@
   <!-- CONTACT -->
   <div class="container">
     <section>
-      <p class="contact-intro reveal">Get in touch</p>
+      <p class="contact-intro reveal" id="contact">Get in touch</p>
       <a href="mailto:storm@stormgraser.dev" class="contact-email reveal">
         storm@stormgraser.dev <span class="arrow">→</span>
       </a>
