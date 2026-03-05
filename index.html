@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storm Graser — Automation for Small Business</title>
+  <meta name="description" content="I find the manual work costing your business time and money. Then I build something that handles it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0c0b;
+      --bg-card:  #131110;
+      --fg:       #ddd4c4;
+      --fg-dim:   #7a7168;
+      --accent:   #c4622d;
+      --border:   rgba(221, 212, 196, 0.07);
+      --mono:     'IBM Plex Mono', monospace;
+      --display:  'Syne', sans-serif;
+      --serif:    'Lora', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 10% 40%, rgba(196, 98, 45, 0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 90% 10%, rgba(221, 212, 196, 0.025) 0%, transparent 60%);
+      color: var(--fg);
+      font-family: var(--serif);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* ── HERO ── */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 0 4rem;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.15s;
+    }
+
+    .hero-name {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(4.5rem, 13vw, 9.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.025em;
+      color: var(--fg);
+      margin-bottom: 2.75rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.35s;
+    }
+
+    .hero-name span { display: block; }
+
+    .hero-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      color: var(--fg-dim);
+      max-width: 460px;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.55s;
+    }
+
+    .hero-tagline em {
+      color: var(--fg);
+      font-style: normal;
+    }
+
+    .scroll-hint {
+      margin-top: 4.5rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.8s;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    /* ── DIVIDER ── */
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── SECTIONS ── */
+
+    section { padding: 6rem 0; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── WORK LIST ── */
+
+    .work-list {
+      list-style: none;
+    }
+
+    .work-item {
+      padding: 2.75rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 3.5rem 1fr;
+      gap: 0 1.75rem;
+      align-items: start;
+    }
+
+    .work-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .work-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      padding-top: 0.35rem;
+      letter-spacing: 0.04em;
+    }
+
+    .work-content h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--fg);
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .work-content p {
+      font-size: 0.93rem;
+      color: var(--fg-dim);
+      line-height: 1.8;
+      max-width: 500px;
+    }
+
+    /* ── ABOUT ── */
+
+    .about-text {
+      font-size: clamp(1rem, 1.8vw, 1.1rem);
+      color: var(--fg);
+      max-width: 580px;
+      line-height: 1.85;
+    }
+
+    .about-text p + p { margin-top: 1.25rem; }
+
+    /* ── CONTACT ── */
+
+    .contact-intro {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      margin-bottom: 1.75rem;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4.5vw, 2.4rem);
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: -0.025em;
+      transition: color 0.2s ease;
+    }
+
+    .contact-email:hover { color: var(--accent); }
+
+    .contact-email .arrow {
+      font-size: 0.75em;
+      color: var(--accent);
+      transition: transform 0.25s ease;
+      line-height: 1;
+    }
+
+    .contact-email:hover .arrow { transform: translateX(6px); }
+
+    .contact-note {
+      margin-top: 1.75rem;
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--fg-dim);
+    }
+
+    /* ── ANIMATIONS ── */
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal:nth-child(2) { transition-delay: 0.1s; }
+    .reveal:nth-child(3) { transition-delay: 0.2s; }
+
+    /* ── RESPONSIVE ── */
+
+    @media (max-width: 600px) {
+      .container { padding: 0 1.5rem; }
+      .hero { padding: 5rem 0 3rem; min-height: 90vh; }
+      .work-item { grid-template-columns: 2.5rem 1fr; gap: 0 1rem; }
+      section { padding: 4.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="container">
+    <section class="hero">
+      <p class="hero-label">Developer &amp; Automation — Eugene, OR</p>
+      <h1 class="hero-name">
+        <span>Storm</span>
+        <span>Graser</span>
+      </h1>
+      <p class="hero-tagline">
+        I find the <em>manual work</em> costing your business
+        time and money. Then I build something that handles it.
+      </p>
+      <p class="scroll-hint">Scroll</p>
+    </section>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHAT I FIX -->
+  <div class="container">
+    <section>
+      <p class="section-label reveal">What I fix</p>
+      <ul class="work-list">
+        <li class="work-item reveal">
+          <span class="work-num">01</span>
+          <div class="work-content">
+            <h3>After-hours intake</h3>
+            <p>Your phone stops taking calls. Customers don't stop needing things. I build systems that capture requests around the clock and deliver them to you with full context by morning — no missed leads, no frantic callbacks.</p>
+          </div>
+        </li>
+        <li class="work-item reveal">
+          <span class="work-num">02</span>
+          <div class="work-content">
+            <h3>Manual scheduling</h3>
+            <p>Every booking is a phone call. That's time you're not spending on the actual job. I replace the back-and-forth with systems that fill your calendar automatically, confirm with the customer, and send reminders so no-shows stop being your problem.</p>
+          </div>
+        </li>
+        <li class="work-item reveal">
+          <span class="work-num">03</span>
+          <div class="work-content">
+            <h3>Follow-up &amp; reminders</h3>
+            <p>Most businesses lose repeat customers to silence. Not bad service — just nobody following up. I build automated sequences that keep you present without requiring you to remember anything, so the relationship outlasts the job.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ABOUT -->
+  <div class="container">
+    <section>
+      <p class="section-label reveal">About</p>
+      <div class="about-text">
+        <p class="reveal">I'm a developer based in Eugene, OR. I work directly with small business owners — no agency overhead, no account managers, no project handoffs. Just me, your problem, and something built to solve it.</p>
+        <p class="reveal">My focus is operational automation: the repetitive, time-consuming work that's easy to automate but nobody has gotten around to fixing. Intake systems, scheduling workflows, follow-up sequences, dispatch tools. The stuff that burns hours every week without anyone noticing.</p>
+      </div>
+    </section>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CONTACT -->
+  <div class="container">
+    <section>
+      <p class="contact-intro reveal">Get in touch</p>
+      <a href="mailto:storm@stormgraser.dev" class="contact-email reveal">
+        storm@stormgraser.dev <span class="arrow">→</span>
+      </a>
+      <p class="contact-note reveal">If you have a process eating your time, tell me about it.</p>
+    </section>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
