@@ -201,6 +201,27 @@
 
     /* ── ABOUT ── */
 
+    .about-section {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+    }
+
+    .about-photo {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .about-text {
       font-size: clamp(1rem, 1.8vw, 1.1rem);
       color: var(--fg);
@@ -209,6 +230,10 @@
     }
 
     .about-text p + p { margin-top: 1.25rem; }
+
+    @media (max-width: 600px) {
+      .about-section { flex-direction: column; gap: 2rem; }
+    }
 
     /* ── CONTACT ── */
 
@@ -340,9 +365,14 @@
   <div class="container">
     <section>
       <p class="section-label reveal">About</p>
-      <div class="about-text">
-        <p class="reveal">I'm a developer based in Eugene, OR. I work directly with small business owners. No agency overhead, no account managers, no handoffs. Just me, your problem, and something built to solve it.</p>
-        <p class="reveal">My focus is the operational stuff that runs on manual labor longer than it should. Intake systems, scheduling workflows, follow-up sequences, dispatch tools. The work that burns hours every week without anyone noticing.</p>
+      <div class="about-section reveal">
+        <div class="about-photo">
+          <img src="headshot.png" alt="Storm Graser" loading="lazy">
+        </div>
+        <div class="about-text">
+          <p>I'm a developer based in Eugene, OR. I work directly with small business owners. No agency overhead, no account managers, no handoffs. Just me, your problem, and something built to solve it.</p>
+          <p>My focus is the operational stuff that runs on manual labor longer than it should. Intake systems, scheduling workflows, follow-up sequences, dispatch tools. The work that burns hours every week without anyone noticing.</p>
+        </div>
       </div>
     </section>
   </div>
