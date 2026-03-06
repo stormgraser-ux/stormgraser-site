@@ -246,36 +246,123 @@
       margin-bottom: 1.75rem;
     }
 
-    .contact-email {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(1.5rem, 4.5vw, 2.4rem);
-      color: var(--fg);
-      text-decoration: none;
-      letter-spacing: -0.025em;
-      transition: color 0.2s ease;
+    .intake-form {
+      max-width: 480px;
     }
 
-    .contact-email:hover { color: var(--accent); }
-
-    .contact-email .arrow {
-      font-size: 0.75em;
-      color: var(--accent);
-      transition: transform 0.25s ease;
-      line-height: 1;
+    .intake-hp {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+      height: 0;
+      width: 0;
+      overflow: hidden;
     }
 
-    .contact-email:hover .arrow { transform: translateX(6px); }
+    .intake-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
 
-    .contact-note {
-      margin-top: 1.75rem;
-      font-size: 0.88rem;
-      font-style: italic;
+    .intake-field label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
       color: var(--fg-dim);
     }
+
+    .intake-field input,
+    .intake-field textarea,
+    .intake-field select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      width: 100%;
+    }
+
+    .intake-field input:focus,
+    .intake-field textarea:focus,
+    .intake-field select:focus {
+      border-color: var(--accent);
+    }
+
+    .intake-privacy {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--fg-dim);
+      letter-spacing: 0.04em;
+    }
+
+    .intake-field textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.6;
+    }
+
+    .intake-field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a7168' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .intake-field select option {
+      background: var(--bg-card);
+      color: var(--fg);
+    }
+
+    .intake-submit {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .intake-submit:hover { opacity: 0.85; }
+    .intake-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .intake-status {
+      margin-top: 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+    }
+
+    .intake-status.success { color: #6fbf73; }
+    .intake-status.error { color: #e57373; }
+
+    .contact-fallback {
+      margin-top: 2.5rem;
+      font-size: 0.82rem;
+      color: var(--fg-dim);
+    }
+
+    .contact-fallback a {
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s ease;
+    }
+
+    .contact-fallback a:hover { border-color: var(--accent); }
 
     /* ── ANIMATIONS ── */
 
@@ -383,10 +470,40 @@
   <div class="container">
     <section>
       <p class="contact-intro reveal" id="contact">Get in touch</p>
-      <a href="mailto:storm@stormgraser.dev" class="contact-email reveal">
-        storm@stormgraser.dev <span class="arrow">→</span>
-      </a>
-      <p class="contact-note reveal">If you have a process eating your time, tell me about it.</p>
+      <form class="intake-form reveal" id="intake-form">
+        <div class="intake-field">
+          <label for="intake-name">Name</label>
+          <input type="text" id="intake-name" name="name" required autocomplete="name">
+        </div>
+        <div class="intake-field">
+          <label for="intake-email">Email</label>
+          <input type="email" id="intake-email" name="email" required autocomplete="email">
+          <span class="intake-privacy">Only used to reply. No list, no spam.</span>
+        </div>
+        <div class="intake-field">
+          <label for="intake-business">Business name</label>
+          <input type="text" id="intake-business" name="business" required>
+        </div>
+        <div class="intake-field">
+          <label for="intake-need">What's eating your time?</label>
+          <textarea id="intake-need" name="need" required placeholder="e.g. We're booking everything by phone and it takes 10 hours a week"></textarea>
+        </div>
+        <div class="intake-field">
+          <label for="intake-urgency">How urgent?</label>
+          <select id="intake-urgency" name="urgency">
+            <option value="Just exploring">Just exploring</option>
+            <option value="Want to move soon">Want to move soon</option>
+            <option value="Losing money now">Losing money now</option>
+          </select>
+        </div>
+        <div class="intake-hp" aria-hidden="true">
+          <label for="intake-company">Company</label>
+          <input type="text" id="intake-company" name="company" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="intake-submit">Get my free assessment</button>
+        <p class="intake-status" id="intake-status" hidden></p>
+      </form>
+      <p class="contact-fallback reveal">Or email directly: <a href="mailto:storm@stormgraser.dev">storm@stormgraser.dev</a></p>
     </section>
   </div>
 
@@ -401,6 +518,48 @@
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.getElementById('intake-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('.intake-submit');
+      const status = document.getElementById('intake-status');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      status.hidden = true;
+
+      const body = {
+        name: e.target.name.value.trim(),
+        email: e.target.email.value.trim(),
+        business: e.target.business.value.trim(),
+        need: e.target.need.value.trim(),
+        urgency: e.target.urgency.value,
+        company: e.target.company.value
+      };
+
+      try {
+        const res = await fetch('/api/intake', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        if (data.ok) {
+          status.textContent = "Got it. I'll look at how your business runs, where the bottlenecks are, and what I'd automate first. Expect a reply within 24 hours.";
+          status.className = 'intake-status success';
+          e.target.reset();
+        } else {
+          status.textContent = data.error || 'Something went wrong. Try emailing directly.';
+          status.className = 'intake-status error';
+        }
+      } catch {
+        status.textContent = 'Connection failed. Try emailing storm@stormgraser.dev directly.';
+        status.className = 'intake-status error';
+      }
+
+      status.hidden = false;
+      btn.disabled = false;
+      btn.textContent = 'Get my free assessment';
+    });
   </script>
 
 </body>
